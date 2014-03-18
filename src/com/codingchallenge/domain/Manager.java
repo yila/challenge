@@ -13,15 +13,23 @@ public class Manager extends Employee {
 	}
 
 	public void assignEmployee(Employee employee) throws RuntimeException {
-		System.out.println(employee == this);
 		if(employee == this){
-			throw new RuntimeErrorException(new Error(), "Cannot assign a manager to him/herself");
+			throw new RuntimeErrorException(new Error(), "A manager cannot assign him/herself to self");
 		}
 		employeesAssigned.add(employee);
 	}
 
 	public List<Employee> getEmployeesAssigned() {
 		return employeesAssigned;
+	}
+
+	@Override
+	public int calculateMonthlyAllocatedAmount() {
+		int totalAllocatedAmount = this.getAllocatedAmount();
+		for(Employee employee : employeesAssigned){
+			totalAllocatedAmount += employee.calculateMonthlyAllocatedAmount();
+		}
+		return totalAllocatedAmount;
 	}
 
 }

@@ -21,4 +21,10 @@ public class TesterQATest {
 		assertEquals(Title.QA_TESTER, tester2.getTitle());
 		assertEquals(Title.QA_TESTER, tester3.getTitle());
 	}
+	
+	@Test public void calculatedAmountShouldBeTheSameAsAllocatedAmount(){
+		TesterQA tester = new TesterQA("The bestes tester", 678);
+		
+		assertEquals(678, tester.calculateMonthlyAllocatedAmount());
+	}
 }

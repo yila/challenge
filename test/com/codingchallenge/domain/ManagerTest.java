@@ -10,11 +10,6 @@ public class ManagerTest {
 	Manager manager = new Manager("dude", 1000);
 
 	@Test
-	public void managerIsAlsoAnEmployee() {
-		assertTrue(Employee.class.isAssignableFrom(Manager.class));
-	}
-
-	@Test
 	public void managerTitleShouldBeManager() {
 		assertEquals(Title.MANAGER, manager.getTitle());
 	}
@@ -62,6 +57,45 @@ public class ManagerTest {
 		assertEquals(developer3, employeesAssigned.get(1));
 	}
 	
+	@Test public void monthlyAllocatedAmountShouldBeTheTotalOfAllTheAmountsOfSubordinatesPlusSelf(){
+		Developer developer1 = new Developer("dev1", 850);
+		Developer developer2 = new Developer("dev2", 900);
+		TesterQA tester = new TesterQA("the Only tester", 200);
+		Manager manager2 = new Manager("manager2", 200);
+		manager2.assignEmployee(developer1);
+		manager2.assignEmployee(developer2);
+		manager2.assignEmployee(tester);
+		Developer developer3 = new Developer("dev3", 999);
+		
+		manager.assignEmployee(manager2);
+		manager.assignEmployee(developer3);
+		
+		assertEquals(4149, manager.calculateMonthlyAllocatedAmount());
+
+	}
+	
+	@Test public void flixibleEnoughToAddMultipleManagers(){
+		Developer developer1 = new Developer("dev1", 500);
+		Developer developer2 = new Developer("dev2", 500);
+		TesterQA tester1 = new TesterQA("the Only tester", 100);
+		Manager manager1 = new Manager("manager2", 500);
+		manager1.assignEmployee(developer1);
+		manager1.assignEmployee(developer2);
+		manager1.assignEmployee(tester1);
+		
+		Developer developer3 = new Developer("dev1", 500);
+		TesterQA tester2 = new TesterQA("the Only tester", 100);
+		Manager manager2 = new Manager("manager2", 500);
+		manager2.assignEmployee(developer3);
+		manager2.assignEmployee(tester2);
+
+		
+		manager.assignEmployee(manager1);
+		manager.assignEmployee(manager2);
+		
+		assertEquals(3700, manager.calculateMonthlyAllocatedAmount());
+	}
+
 	@Test(expected=RuntimeException.class)
 	public void throwAnExceptionWhenManagerIsAssignedToHimselfOrHerself() throws RuntimeException{
 			manager.assignEmployee(manager);
@@ -72,8 +106,7 @@ public class ManagerTest {
 		try{
 			manager.assignEmployee(manager);
 		}catch(RuntimeException e){
-			assertEquals("Cannot assign a manager to him/herself", e.getMessage());
+			assertEquals("A manager cannot assign him/herself to self", e.getMessage());
 		}
 	}
-
 }

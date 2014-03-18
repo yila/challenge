@@ -42,4 +42,11 @@ public class DeveloperTest {
 		assertEquals(300, developer.getAllocatedAmount());
 	}
 	
+	
+	@Test public void calculatedMonthlyCostShouldBeTheSameAsAssignedCost(){
+		Developer developer = new Developer("James", 1000);
+		
+		assertEquals(1000, developer.calculateMonthlyAllocatedAmount());
+	}
+	
 }

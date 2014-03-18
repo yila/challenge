@@ -7,4 +7,9 @@ public class TesterQA extends Employee{
 		super(name, Title.QA_TESTER, allocatedAmount);
 	}
 
+	@Override
+	int calculateMonthlyAllocatedAmount() {
+		return this.getAllocatedAmount();
+	}
+
 }
