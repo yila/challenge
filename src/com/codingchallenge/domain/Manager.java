@@ -6,11 +6,16 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+import com.codingchallenge.model.DaoInstanceFactory;
+import com.codingchallenge.model.EmployeeDao;
+
 public class Manager extends Employee {
+	private EmployeeDao dao = DaoInstanceFactory.getDao();
 	private List<Employee> employeesAssigned = new ArrayList<Employee>();
 
-	public Manager(String name, int allocatedAmount) {
-		super(name, Title.MANAGER, allocatedAmount);
+	public Manager(String name) {
+		super(name, Title.MANAGER);
+		setAllocatedAmount(dao.getAllocationForTitle(Title.MANAGER));
 	}
 
 	public void assignEmployees(Employee... employeesToAssign) {

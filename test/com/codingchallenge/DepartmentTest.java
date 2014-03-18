@@ -34,7 +34,7 @@ public class DepartmentTest {
 	@Test
 	public void shouldBeAbleToAssignASingleEmployeeDirectlyToADepartment() {
 		Department department = new Department(DeptName.BILLING);
-		Developer developer = new Developer("Jane Doe", 100);
+		Developer developer = new Developer("Jane Doe");
 		
 		department.addEmployees(developer);
 		
@@ -44,9 +44,9 @@ public class DepartmentTest {
 	@Test
 	public void shouldBeAbleToAddMultipleEmployeesAlltogetherToTheDepartment(){
 		Department department = new Department(DeptName.MARKETING);
-		Developer developer = new Developer("Jane Doe", 100);
-		TesterQA tester = new TesterQA("Shane the Best", 200);
-		Manager manager = new Manager("Marry", 500);
+		Developer developer = new Developer("Jane Doe");
+		TesterQA tester = new TesterQA("Shane the Best");
+		Manager manager = new Manager("Marry");
 		
 		department.addEmployees(developer, tester, manager);
 		
@@ -67,15 +67,15 @@ public class DepartmentTest {
 	@Test
 	public void monthlyAllocatedExpenseShouldBeTheSumOfAllExpensesOfEmployeesInTheDepartment(){
 		Department department = new Department(DeptName.MARKETING);
-		Developer developer1 = new Developer("Jane Doe", 100);
-		TesterQA tester1 = new TesterQA("Shane the Best", 200);
-		Manager manager = new Manager("Marry", 500);
-		Developer developer2 = new Developer("Bob the Builder", 600);
-		TesterQA tester2 = new TesterQA("Judy the Tester", 100);
+		Developer developer1 = new Developer("Jane Doe");
+		TesterQA tester1 = new TesterQA("Shane the Best");
+		Manager manager = new Manager("Marry");
+		Developer developer2 = new Developer("Bob the Builder");
+		TesterQA tester2 = new TesterQA("Judy the Tester");
 		manager.assignEmployees(developer2, tester2);
 		
 		department.addEmployees(developer1, tester1, manager);
 		
-		assertEquals(1500, department.calculateMonthlyAllocatedExpense());
+		assertEquals(3300, department.calculateMonthlyAllocatedExpense());
 	}
 }

@@ -1,10 +1,16 @@
 package com.codingchallenge.domain;
 
+import com.codingchallenge.model.DaoInstanceFactory;
+import com.codingchallenge.model.EmployeeDao;
+
 
 public class TesterQA extends Employee{
 
-	public TesterQA(String name, int allocatedAmount) {
-		super(name, Title.QA_TESTER, allocatedAmount);
+	private EmployeeDao dao = DaoInstanceFactory.getDao();
+	
+	public TesterQA(String name) {
+		super(name, Title.QA_TESTER);
+		setAllocatedAmount(dao.getAllocationForTitle(Title.QA_TESTER));
 	}
 
 	@Override

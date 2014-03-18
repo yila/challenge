@@ -7,10 +7,9 @@ public abstract class Employee {
 	private final Title title;
 	private int allocatedAmount;
 
-	public Employee(String name, Title title, int allocatedAmount) {
+	public Employee(String name, Title title) {
 		this.name = name;
 		this.title = title;
-		this.allocatedAmount = allocatedAmount;
 	}
 
 	public String getName() {

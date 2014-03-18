@@ -1,13 +1,18 @@
 package com.codingchallenge.domain;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
 import org.junit.Test;
 
+import com.codingchallenge.model.DaoInstanceFactory;
+import com.codingchallenge.model.EmployeeDao;
+
 public class ManagerTest {
-	Manager manager = new Manager("dude", 1000);
+	Manager manager = new Manager("dude");
 
 	@Test
 	public void managerTitleShouldBeManager() {
@@ -20,10 +25,15 @@ public class ManagerTest {
 	}
 
 	@Test
+	public void managersDefaultAllocationAmountShouldBe300(){
+		assertEquals(300, manager.getAllocatedAmount());
+	}
+	
+	@Test
 	public void managerShouldBeAbleToAssignAnyEmployee() throws RuntimeException {
-		Developer developer1 = new Developer("dev1", 850);
-		Developer developer2 = new Developer("dev2", 900);
-		TesterQA tester = new TesterQA("the Only tester", 200);
+		Developer developer1 = new Developer("dev1");
+		Developer developer2 = new Developer("dev2");
+		TesterQA tester = new TesterQA("the Only tester");
 
 		manager.assignEmployees(developer1, developer2, tester);
 
@@ -36,12 +46,12 @@ public class ManagerTest {
 
 	@Test
 	public void aManagerCanHaveAnotherManagerUnderHimOrHer() throws RuntimeException {
-		Developer developer1 = new Developer("dev1", 850);
-		Developer developer2 = new Developer("dev2", 900);
-		TesterQA tester = new TesterQA("the Only tester", 200);
-		Manager manager2 = new Manager("manager2", 200);
+		Developer developer1 = new Developer("dev1");
+		Developer developer2 = new Developer("dev2");
+		TesterQA tester = new TesterQA("the Only tester");
+		Manager manager2 = new Manager("manager2");
 		manager2.assignEmployees(developer1, developer2, tester);
-		Developer developer3 = new Developer("dev3", 999);
+		Developer developer3 = new Developer("dev3");
 		
 		manager.assignEmployees(manager2, developer3);
 
@@ -53,34 +63,34 @@ public class ManagerTest {
 	}
 	
 	@Test public void monthlyAllocatedAmountShouldBeTheTotalOfAllTheAmountsOfSubordinatesPlusSelf(){
-		Developer developer1 = new Developer("dev1", 850);
-		Developer developer2 = new Developer("dev2", 900);
-		TesterQA tester = new TesterQA("the Only tester", 200);
-		Manager manager2 = new Manager("manager2", 200);
+		Developer developer1 = new Developer("dev1");
+		Developer developer2 = new Developer("dev2");
+		TesterQA tester = new TesterQA("the Only tester");
+		Manager manager2 = new Manager("manager2");
 		manager2.assignEmployees(developer1, developer2, tester);
-		Developer developer3 = new Developer("dev3", 999);
+		Developer developer3 = new Developer("dev3");
 		
 		manager.assignEmployees(manager2, developer3);
 		
-		assertEquals(4149, manager.calculateMonthlyAllocatedAmount());
+		assertEquals(4100, manager.calculateMonthlyAllocatedAmount());
 
 	}
 	
 	@Test public void flixibleEnoughToAddMultipleManagers(){
-		Developer developer1 = new Developer("dev1", 500);
-		Developer developer2 = new Developer("dev2", 500);
-		TesterQA tester1 = new TesterQA("the Only tester", 100);
-		Manager manager1 = new Manager("manager2", 500);
+		Developer developer1 = new Developer("dev1");
+		Developer developer2 = new Developer("dev2");
+		TesterQA tester1 = new TesterQA("the Only tester");
+		Manager manager1 = new Manager("manager2");
 		manager1.assignEmployees(developer1, developer2, tester1);
 		
-		Developer developer3 = new Developer("dev1", 500);
-		TesterQA tester2 = new TesterQA("the Only tester", 100);
-		Manager manager2 = new Manager("manager2", 500);
+		Developer developer3 = new Developer("dev1");
+		TesterQA tester2 = new TesterQA("the Only tester");
+		Manager manager2 = new Manager("manager2");
 		manager2.assignEmployees(developer3, tester2);
 
 		manager.assignEmployees(manager1, manager2);
 		
-		assertEquals(3700, manager.calculateMonthlyAllocatedAmount());
+		assertEquals(4900, manager.calculateMonthlyAllocatedAmount());
 	}
 
 	@Test(expected=RuntimeException.class)
@@ -97,4 +107,28 @@ public class ManagerTest {
 			assertEquals("A manager cannot assign him/herself to self", e.getMessage());
 		}
 	}
+	@Test
+	public void shouldUseDaoToGetAllocatedAmount(){
+		EmployeeDao dao = mock(EmployeeDao.class);
+		DaoInstanceFactory.set(dao);
+		when(dao.getAllocationForTitle(Title.MANAGER)).thenReturn(2000);
+
+		Manager manager = new Manager("James");
+		
+		assertEquals(2000, manager.getAllocatedAmount());
+		DaoInstanceFactory.set(null);
+	}
+	
+	@Test
+	public void SCENARIO_FROM_REQUIREMENTS(){
+		Developer developer = new Developer("dev1");
+		TesterQA tester = new TesterQA("the Only tester");
+		Manager managerB = new Manager("Manager B");
+		managerB.assignEmployees(developer, tester);
+		
+		manager.assignEmployees(managerB);
+		
+		assertEquals(2100, manager.calculateMonthlyAllocatedAmount());
+	}
+
 }
