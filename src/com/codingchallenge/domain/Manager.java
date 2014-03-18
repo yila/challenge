@@ -1,6 +1,7 @@
 package com.codingchallenge.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
@@ -12,15 +13,13 @@ public class Manager extends Employee {
 		super(name, Title.MANAGER, allocatedAmount);
 	}
 
-	public void assignEmployee(Employee employee) throws RuntimeException {
-		if(employee == this){
-			throw new RuntimeErrorException(new Error(), "A manager cannot assign him/herself to self");
+	public void assignEmployees(Employee... employeesToAssign) {
+		for(Employee employee : employeesToAssign){
+			if(employee == this){
+				throw new RuntimeErrorException(new Error(), "A manager cannot assign him/herself to self");
+			}
 		}
-		employeesAssigned.add(employee);
-	}
-
-	public List<Employee> getEmployeesAssigned() {
-		return employeesAssigned;
+		employeesAssigned.addAll(Arrays.asList(employeesToAssign));
 	}
 
 	@Override
@@ -30,6 +29,10 @@ public class Manager extends Employee {
 			totalAllocatedAmount += employee.calculateMonthlyAllocatedAmount();
 		}
 		return totalAllocatedAmount;
+	}
+
+	public List<Employee> getEmployeesAssigned() {
+		return employeesAssigned;
 	}
 
 }

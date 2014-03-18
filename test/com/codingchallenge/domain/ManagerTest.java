@@ -25,9 +25,7 @@ public class ManagerTest {
 		Developer developer2 = new Developer("dev2", 900);
 		TesterQA tester = new TesterQA("the Only tester", 200);
 
-		manager.assignEmployee(developer1);
-		manager.assignEmployee(developer2);
-		manager.assignEmployee(tester);
+		manager.assignEmployees(developer1, developer2, tester);
 
 		List<Employee> employeesAssigned = manager.getEmployeesAssigned();
 		assertEquals(3, employeesAssigned.size());
@@ -42,13 +40,10 @@ public class ManagerTest {
 		Developer developer2 = new Developer("dev2", 900);
 		TesterQA tester = new TesterQA("the Only tester", 200);
 		Manager manager2 = new Manager("manager2", 200);
-		manager2.assignEmployee(developer1);
-		manager2.assignEmployee(developer2);
-		manager2.assignEmployee(tester);
+		manager2.assignEmployees(developer1, developer2, tester);
 		Developer developer3 = new Developer("dev3", 999);
 		
-		manager.assignEmployee(manager2);
-		manager.assignEmployee(developer3);
+		manager.assignEmployees(manager2, developer3);
 
 		List<Employee> employeesAssigned = manager.getEmployeesAssigned();
 		assertEquals(2, employeesAssigned.size());
@@ -62,13 +57,10 @@ public class ManagerTest {
 		Developer developer2 = new Developer("dev2", 900);
 		TesterQA tester = new TesterQA("the Only tester", 200);
 		Manager manager2 = new Manager("manager2", 200);
-		manager2.assignEmployee(developer1);
-		manager2.assignEmployee(developer2);
-		manager2.assignEmployee(tester);
+		manager2.assignEmployees(developer1, developer2, tester);
 		Developer developer3 = new Developer("dev3", 999);
 		
-		manager.assignEmployee(manager2);
-		manager.assignEmployee(developer3);
+		manager.assignEmployees(manager2, developer3);
 		
 		assertEquals(4149, manager.calculateMonthlyAllocatedAmount());
 
@@ -79,32 +71,28 @@ public class ManagerTest {
 		Developer developer2 = new Developer("dev2", 500);
 		TesterQA tester1 = new TesterQA("the Only tester", 100);
 		Manager manager1 = new Manager("manager2", 500);
-		manager1.assignEmployee(developer1);
-		manager1.assignEmployee(developer2);
-		manager1.assignEmployee(tester1);
+		manager1.assignEmployees(developer1, developer2, tester1);
 		
 		Developer developer3 = new Developer("dev1", 500);
 		TesterQA tester2 = new TesterQA("the Only tester", 100);
 		Manager manager2 = new Manager("manager2", 500);
-		manager2.assignEmployee(developer3);
-		manager2.assignEmployee(tester2);
+		manager2.assignEmployees(developer3, tester2);
 
-		
-		manager.assignEmployee(manager1);
-		manager.assignEmployee(manager2);
+		manager.assignEmployees(manager1, manager2);
 		
 		assertEquals(3700, manager.calculateMonthlyAllocatedAmount());
 	}
 
 	@Test(expected=RuntimeException.class)
 	public void throwAnExceptionWhenManagerIsAssignedToHimselfOrHerself() throws RuntimeException{
-			manager.assignEmployee(manager);
+			manager.assignEmployees(manager);
 	}
 	
 	@Test
 	public void messageWhenThrowingTheException(){
 		try{
-			manager.assignEmployee(manager);
+			manager.assignEmployees(manager);
+			fail("Should throw an exception!!!");
 		}catch(RuntimeException e){
 			assertEquals("A manager cannot assign him/herself to self", e.getMessage());
 		}

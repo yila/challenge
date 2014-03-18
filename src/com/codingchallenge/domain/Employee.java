@@ -33,5 +33,5 @@ public abstract class Employee {
 		this.allocatedAmount = allocatedAmount;
 	}
 	
-	abstract int calculateMonthlyAllocatedAmount();
+	public abstract int calculateMonthlyAllocatedAmount();
 }
