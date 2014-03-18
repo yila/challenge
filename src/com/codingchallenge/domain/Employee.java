@@ -1,9 +1,10 @@
 package com.codingchallenge.domain;
 
-public class Employee {
+
+public abstract class Employee {
 
 	private String name;
-	private Title title;
+	private final Title title;
 	private int allocatedAmount;
 
 	public Employee(String name, Title title, int allocatedAmount) {
@@ -28,12 +29,8 @@ public class Employee {
 		this.name = name;
 	}
 
-	public void setTitle(Title title) {
-		this.title = title;
-	}
-
 	public void setAllocatedAmount(int allocatedAmount) {
 		this.allocatedAmount = allocatedAmount;
 	}
-
+	
 }

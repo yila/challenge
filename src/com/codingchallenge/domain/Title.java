@@ -1,5 +1,5 @@
 package com.codingchallenge.domain;
 
 public enum Title {
-	DEVELOPER, QA_TESTER, MANAGER
+	DEVELOPER, QA_TESTER, MANAGER, DUMMY
 }
