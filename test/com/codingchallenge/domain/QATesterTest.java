@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.codingchallenge.model.DaoInstanceFactory;
 import com.codingchallenge.model.EmployeeDao;
 
-public class TesterQATest {
+public class QATesterTest {
 
 	@Test
 	public void testerIsAlsoAnEmployee() {
