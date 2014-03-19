@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.codingchallenge.domain.Developer;
 import com.codingchallenge.domain.Employee;
 import com.codingchallenge.domain.Manager;
-import com.codingchallenge.domain.TesterQA;
+import com.codingchallenge.domain.QATester;
 
 public class DepartmentTest {
 
@@ -45,7 +45,7 @@ public class DepartmentTest {
 	public void shouldBeAbleToAddMultipleEmployeesAlltogetherToTheDepartment(){
 		Department department = new Department(DeptName.MARKETING);
 		Developer developer = new Developer("Jane Doe");
-		TesterQA tester = new TesterQA("Shane the Best");
+		QATester tester = new QATester("Shane the Best");
 		Manager manager = new Manager("Marry");
 		
 		department.addEmployees(developer, tester, manager);
@@ -68,10 +68,10 @@ public class DepartmentTest {
 	public void monthlyAllocatedExpenseShouldBeTheSumOfAllExpensesOfEmployeesInTheDepartment(){
 		Department department = new Department(DeptName.MARKETING);
 		Developer developer1 = new Developer("Jane Doe");
-		TesterQA tester1 = new TesterQA("Shane the Best");
+		QATester tester1 = new QATester("Shane the Best");
 		Manager manager = new Manager("Marry");
 		Developer developer2 = new Developer("Bob the Builder");
-		TesterQA tester2 = new TesterQA("Judy the Tester");
+		QATester tester2 = new QATester("Judy the Tester");
 		manager.assignEmployees(developer2, tester2);
 		
 		department.addEmployees(developer1, tester1, manager);

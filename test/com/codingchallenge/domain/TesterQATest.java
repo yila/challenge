@@ -13,14 +13,14 @@ public class TesterQATest {
 
 	@Test
 	public void testerIsAlsoAnEmployee() {
-		assertTrue(Employee.class.isAssignableFrom(TesterQA.class));
+		assertTrue(Employee.class.isAssignableFrom(QATester.class));
 	}
 
 	@Test
 	public void testerQAConstructorShouldCreateDeveloperRoleByDefault() {
-		TesterQA tester1 = new TesterQA("Dave the tester");
-		TesterQA tester2 = new TesterQA("Bobby the tester");
-		TesterQA tester3 = new TesterQA("The bestes tester");
+		QATester tester1 = new QATester("Dave the tester");
+		QATester tester2 = new QATester("Bobby the tester");
+		QATester tester3 = new QATester("The bestes tester");
 
 		assertEquals(Title.QA_TESTER, tester1.getTitle());
 		assertEquals(Title.QA_TESTER, tester2.getTitle());
@@ -29,14 +29,14 @@ public class TesterQATest {
 
 	@Test
 	public void calculatedAmountShouldBeTheSameAsAllocatedAmount() {
-		TesterQA tester = new TesterQA("The bestes tester");
+		QATester tester = new QATester("The bestes tester");
 
 		assertEquals(500, tester.calculateMonthlyAllocatedAmount());
 	}
 	
 	@Test
 	public void calculatedAmountShouldBeTheSameAsMostCurrentAssignedAllocatedAmount() {
-		TesterQA tester = new TesterQA("The bestes tester");
+		QATester tester = new QATester("The bestes tester");
 		assertEquals(500, tester.calculateMonthlyAllocatedAmount());
 		
 		tester.setAllocatedAmount(300);
@@ -49,7 +49,7 @@ public class TesterQATest {
 		DaoInstanceFactory.set(dao);
 		when(dao.getAllocationForTitle(Title.QA_TESTER)).thenReturn(1000);
 
-		TesterQA tester = new TesterQA("James");
+		QATester tester = new QATester("James");
 		
 		assertEquals(1000, tester.getAllocatedAmount());
 		DaoInstanceFactory.set(null);

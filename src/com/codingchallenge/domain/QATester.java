@@ -4,11 +4,11 @@ import com.codingchallenge.model.DaoInstanceFactory;
 import com.codingchallenge.model.EmployeeDao;
 
 
-public class TesterQA extends Employee{
+public class QATester extends Employee{
 
 	private EmployeeDao dao = DaoInstanceFactory.getDao();
 	
-	public TesterQA(String name) {
+	public QATester(String name) {
 		super(name, Title.QA_TESTER);
 		setAllocatedAmount(dao.getAllocationForTitle(Title.QA_TESTER));
 	}

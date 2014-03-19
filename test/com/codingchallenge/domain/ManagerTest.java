@@ -33,7 +33,7 @@ public class ManagerTest {
 	public void managerShouldBeAbleToAssignAnyEmployee() throws RuntimeException {
 		Developer developer1 = new Developer("dev1");
 		Developer developer2 = new Developer("dev2");
-		TesterQA tester = new TesterQA("the Only tester");
+		QATester tester = new QATester("the Only tester");
 
 		manager.assignEmployees(developer1, developer2, tester);
 
@@ -48,7 +48,7 @@ public class ManagerTest {
 	public void aManagerCanHaveAnotherManagerUnderHimOrHer() throws RuntimeException {
 		Developer developer1 = new Developer("dev1");
 		Developer developer2 = new Developer("dev2");
-		TesterQA tester = new TesterQA("the Only tester");
+		QATester tester = new QATester("the Only tester");
 		Manager manager2 = new Manager("manager2");
 		manager2.assignEmployees(developer1, developer2, tester);
 		Developer developer3 = new Developer("dev3");
@@ -65,7 +65,7 @@ public class ManagerTest {
 	@Test public void monthlyAllocatedAmountShouldBeTheTotalOfAllTheAmountsOfSubordinatesPlusSelf(){
 		Developer developer1 = new Developer("dev1");
 		Developer developer2 = new Developer("dev2");
-		TesterQA tester = new TesterQA("the Only tester");
+		QATester tester = new QATester("the Only tester");
 		Manager manager2 = new Manager("manager2");
 		manager2.assignEmployees(developer1, developer2, tester);
 		Developer developer3 = new Developer("dev3");
@@ -79,12 +79,12 @@ public class ManagerTest {
 	@Test public void flixibleEnoughToAddMultipleManagers(){
 		Developer developer1 = new Developer("dev1");
 		Developer developer2 = new Developer("dev2");
-		TesterQA tester1 = new TesterQA("the Only tester");
+		QATester tester1 = new QATester("the Only tester");
 		Manager manager1 = new Manager("manager2");
 		manager1.assignEmployees(developer1, developer2, tester1);
 		
 		Developer developer3 = new Developer("dev1");
-		TesterQA tester2 = new TesterQA("the Only tester");
+		QATester tester2 = new QATester("the Only tester");
 		Manager manager2 = new Manager("manager2");
 		manager2.assignEmployees(developer3, tester2);
 
@@ -122,7 +122,7 @@ public class ManagerTest {
 	@Test
 	public void SCENARIO_FROM_REQUIREMENTS(){
 		Developer developer = new Developer("dev1");
-		TesterQA tester = new TesterQA("the Only tester");
+		QATester tester = new QATester("the Only tester");
 		Manager managerB = new Manager("Manager B");
 		managerB.assignEmployees(developer, tester);
 		
